@@ -11,6 +11,8 @@ TagManager:
   - cristal
   - escada
   - parar
+  - spike
+  - movimentoPlataforma
   layers:
   - Default
   - TransparentFX

@@ -18,15 +18,15 @@ public class Plataform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (cont <= 500)
+        if (cont <= 125)
         {
             MovePlataforma(1);
         }
-        if (cont > 500 && cont <= 1000)
+        if (cont > 125 && cont <= 250)
         {
             MovePlataforma(-1);
         }
-        if (cont > 1000)
+        if (cont > 250)
         {
             cont = 0;
         }

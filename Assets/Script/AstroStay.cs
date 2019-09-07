@@ -105,13 +105,17 @@ public class AstroStay : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Plataforma") || collision.gameObject.CompareTag("Tile"))
+        if(collision.gameObject.CompareTag("Plataforma") || collision.gameObject.CompareTag("Tile") || collision.gameObject.CompareTag("movimentoPlataforma"))
         {
             personagemNoChao = true;
         }
         if (collision.gameObject.CompareTag("cristal"))
         {
             qtdCristal++;
+        }
+        if (collision.gameObject.CompareTag("movimentoPlataforma"))
+        {
+            GetComponent<Transform>().parent = collision.transform;
         }
     }
 
@@ -121,6 +125,11 @@ public class AstroStay : MonoBehaviour
         {
             personagemNoChao = false;
         }
+        if (collision.gameObject.CompareTag("movimentoPlataforma"))
+        {
+            GetComponent<Transform>().parent = null;
+        }
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
