@@ -1,6 +1,6 @@
 # SpacePurzzle
 
-O jogo se passar em um planeta desconhecio, onde o Astronata tem o objetivo de coletar 3 cristais a cada fase.
+O jogo se passa em um planeta desconhecio, onde o Astronata tem o objetivo de coletar 3 cristais a cada fase.
 
 ## Controle do personagem
 
