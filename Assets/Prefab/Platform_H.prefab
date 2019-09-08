@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3080030280954020676}
   - component: {fileID: 3080030280954020728}
   m_Layer: 0
-  m_Name: Platform_01
+  m_Name: Platform_H
   m_TagString: Plataforma
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -137,7 +137,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3080030280954020729}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88dd9138c87d7264e9ec0234bad2f69f, type: 3}
   m_Name: 

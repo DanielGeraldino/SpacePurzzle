@@ -44,6 +44,7 @@ public class AstroStay : MonoBehaviour
         Pular();
         SubirEscada();
 
+        
     }
 
     private void Andar()

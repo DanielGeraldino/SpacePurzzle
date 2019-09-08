@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.Windows.Speech; // Api da microsoft para entrada por voz
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ControlePorVoz : MonoBehaviour
 {
@@ -16,6 +18,14 @@ public class ControlePorVoz : MonoBehaviour
     public bool colisaoEscada; // identifica se o persogem esta colidido com a escada
     public bool subirEscada; // verdadeiro se o personagem estive subido escada
     public bool desceEscada; // verdadeiro se o personagem recebe o comando de descer escada
+    public bool personagemVivo; // indicar se o personagem esta vivo;
+
+    public int qtdCristal = 0; // guarda a quandidade de cristal coletada
+    public Text textoQtdCristal; // objeto Text que desenha o a quantidade de cristal na tela do jogo;
+
+    public GameObject gameManager;
+    public GameObject objPortal;
+    public GameObject painelFinal;
 
     KeywordRecognizer keywordRecognizer;
     Dictionary<string, System.Action> keywords = new Dictionary<string, System.Action>(); // dicionario que guarda um texto/comando relacionado a uma ação/metodo
@@ -28,12 +38,14 @@ public class ControlePorVoz : MonoBehaviour
         rb = GetComponent<Rigidbody2D>(); // iniciando o objeto rb com componete Rigidbody
         animator = GetComponent<Animator>(); // iniciando o objeto rb com componete Animator
         gravidadeInicial = rb.gravityScale; // setando a gravidade inicial na variavel
+        personagemVivo = true;
+        
 
         keywords.Add("anda", () => {
             andarParaFentre = true;
             andarParaTras = false;
             }); // Adicionando o comando de voz "Anda", se o comando for usado a variavel "AndaParaFrente" fica verdadeira
-        keywords.Add("Volta", () => {
+        keywords.Add("volta", () => {
             andarParaTras = true;
             andarParaFentre = false; 
             }); // Adicionando o comando de voz "Volta", se o comando for usado a variavel "AndaParaFente" fica false e "AndarParaTras" fica verdadeira
@@ -50,24 +62,44 @@ public class ControlePorVoz : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (andarParaFentre)
+        
+        if (personagemVivo && !(gameManager.GetComponent<GameManager>().isPause))
         {
-            Andar(1); // se anda para frente é verdadeiro, o metodo Andar() é executado com o paramentro 1. Caso contrario, o metodo recebe o como paramentro -1
-        } else if (andarParaTras)
-        {
-            Andar(-1);
-        }
+            textoQtdCristal.text = qtdCristal.ToString();
+            Portal portal = objPortal.GetComponent<Portal>();
 
-        if (subirEscada && colisaoEscada)
+            if (qtdCristal == 3)
+            {
+                 portal.portalOn = true;
+            }
+
+            if (andarParaFentre)
+            {
+                Andar(1); // se anda para frente é verdadeiro, o metodo Andar() é executado com o paramentro 1. Caso contrario, o metodo recebe o como paramentro -1
+            } else if (andarParaTras)
+            {
+                Andar(-1);
+            }
+            else
+            {
+                andarParaFentre = false;
+                andarParaTras = false;
+            }
+
+            if (subirEscada && colisaoEscada)
+            {
+                SubirEscada(1); // se subirEscada e o personagem estive em contato com a escada. O metodo SubirEscada é executado com paramentro 1. Caso contrario, o paramentro é -1.
+            } else if(desceEscada && colisaoEscada)
+            {
+                SubirEscada(-1);
+            }
+            else
+            {
+                rb.gravityScale = gravidadeInicial; // se ambos os casos forem falso. O personagem recebe a gravidade inicial.
+            }
+        } else if (gameManager.GetComponent<GameManager>().isPause)
         {
-            SubirEscada(1); // se subirEscada e o personagem estive em contato com a escada. O metodo SubirEscada é executado com paramentro 1. Caso contrario, o paramentro é -1.
-        } else if(desceEscada && colisaoEscada)
-        {
-            SubirEscada(-1);
-        }
-        else
-        {
-            rb.gravityScale = gravidadeInicial; // se ambos os casos forem falso. O personagem recebe a gravidade inicial.
+            Parar();
         }
 
     }
@@ -79,6 +111,16 @@ public class ControlePorVoz : MonoBehaviour
         {
             keywordAction.Invoke();
         }
+    }
+
+    private void RecarregarScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void finalJogo()
+    {
+
     }
 
     private void Andar(int direcao)
@@ -146,6 +188,16 @@ public class ControlePorVoz : MonoBehaviour
         if(collision.gameObject.CompareTag("movimentoPlataforma")){
             GetComponent<Transform>().parent = collision.transform;
         }
+        if (collision.gameObject.CompareTag("spike"))
+        {
+            personagemVivo = false;
+            animator.SetBool("morre", true);
+            Invoke("RecarregarScene", 3f);
+        }
+        if (collision.gameObject.CompareTag("cristal"))
+        {
+            qtdCristal++;
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision) // metodo para indetifica a saida da colisao do personagem com outros objetos do jogo.
@@ -170,6 +222,12 @@ public class ControlePorVoz : MonoBehaviour
         {
             GetComponent<Transform>().parent = null;
         }
+        if (collision.gameObject.CompareTag("portal"))
+        {
+            Parar();
+            painelFinal.SetActive(true);
+        }
+        
     }
 
     private void OnTriggerExit2D(Collider2D collision)

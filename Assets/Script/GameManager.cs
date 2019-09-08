@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class GameManager : MonoBehaviour
 {
     public GameObject Painel;
-    private bool isPause;
-
+    public bool isPause;
 
     
     void Start()
@@ -34,5 +34,11 @@ public class GameManager : MonoBehaviour
             Painel.SetActive(true);
             isPause = true;
         }
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+      
     }
 }
