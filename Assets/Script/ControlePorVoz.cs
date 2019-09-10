@@ -100,6 +100,9 @@ public class ControlePorVoz : MonoBehaviour
         } else if (gameManager.GetComponent<GameManager>().isPause)
         {
             Parar();
+        } else if (!(personagemVivo))
+        {
+            Invoke("RecarregarScene", 3f);
         }
 
     }
@@ -192,11 +195,14 @@ public class ControlePorVoz : MonoBehaviour
         {
             personagemVivo = false;
             animator.SetBool("morre", true);
-            Invoke("RecarregarScene", 3f);
         }
         if (collision.gameObject.CompareTag("cristal"))
         {
             qtdCristal++;
+        }
+        if (collision.gameObject.CompareTag("movimentoPlataforma"))
+        {
+            GetComponent<Transform>().parent = collision.transform;
         }
     }
 
@@ -208,8 +214,9 @@ public class ControlePorVoz : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("movimentoPlataforma"))
         {
-            GetComponent<Transform>().parent = collision.transform;
+            GetComponent<Transform>().parent = null;
         }
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision) 
@@ -235,6 +242,7 @@ public class ControlePorVoz : MonoBehaviour
         if (collision.gameObject.CompareTag("escada"))// se o personagem sair do contato com escada, um gatilho é disparado e a variavel colisaoEscada é setada como falsa
         {
             colisaoEscada = false;
+            subirEscada = false;
             animator.SetBool("subirEscada", false); // seta a animação de subir escada como false
         }
     }
