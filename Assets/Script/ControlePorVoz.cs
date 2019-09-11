@@ -28,30 +28,38 @@ public class ControlePorVoz : MonoBehaviour
     public GameObject painelFinal;
 
     KeywordRecognizer keywordRecognizer;
-    Dictionary<string, System.Action> keywords = new Dictionary<string, System.Action>(); // dicionario que guarda um texto/comando relacionado a uma ação/metodo
+    // dicionario que guarda um texto/comando relacionado a uma ação/metodo
+    Dictionary<string, System.Action> keywords = new Dictionary<string, System.Action>(); 
 
     private Rigidbody2D rb; // objeto que guarda o rigibody do personagem
     Animator animator; // objeto que guarda o componente animator
 
     void Start()
-    {
-        rb = GetComponent<Rigidbody2D>(); // iniciando o objeto rb com componete Rigidbody
-        animator = GetComponent<Animator>(); // iniciando o objeto rb com componete Animator
-        gravidadeInicial = rb.gravityScale; // setando a gravidade inicial na variavel
+    {   
+        // iniciando o objeto rb com componete Rigidbody
+        rb = GetComponent<Rigidbody2D>();
+        // iniciando o objeto rb com componete Animator
+        animator = GetComponent<Animator>(); 
+        // setando a gravidade inicial na variavel
+        gravidadeInicial = rb.gravityScale; 
         personagemVivo = true;
         
 
         keywords.Add("anda", () => {
+            // Adicionando o comando de voz "Anda", se o comando for usado a variavel "AndaParaFrente" fica verdadeira
             andarParaFentre = true;
             andarParaTras = false;
-            }); // Adicionando o comando de voz "Anda", se o comando for usado a variavel "AndaParaFrente" fica verdadeira
+            }); 
         keywords.Add("volta", () => {
+            // Adicionando o comando de voz "Volta", se o comando for usado a variavel "AndaParaFente" fica false e "AndarParaTras" fica verdadeira
             andarParaTras = true;
             andarParaFentre = false; 
-            }); // Adicionando o comando de voz "Volta", se o comando for usado a variavel "AndaParaFente" fica false e "AndarParaTras" fica verdadeira
+            }); 
         keywords.Add("sobe", () => { subirEscada = true; }); // Adicionado o comando para subir escada, se o comando for usado a variavel "subirEscada" fica verdadeira
-        keywords.Add("para", () => Parar()); // Adicionado o comando de parada, se o comando for usado o metodo Parar() é executado
-        keywords.Add("pula", () => Pular()); // Adicionado o comando Pular, se o comando for executado o metodo Pular() é chamado
+        // Adicionado o comando de parada, se o comando for usado o metodo Parar() é executado
+        keywords.Add("para", () => Parar()); 
+        // Adicionado o comando Pular, se o comando for executado o metodo Pular() é chamado
+        keywords.Add("pula", () => Pular()); 
 
 
         keywordRecognizer = new KeywordRecognizer(keywords.Keys.ToArray());
@@ -75,7 +83,8 @@ public class ControlePorVoz : MonoBehaviour
 
             if (andarParaFentre)
             {
-                Andar(1); // se anda para frente é verdadeiro, o metodo Andar() é executado com o paramentro 1. Caso contrario, o metodo recebe o como paramentro -1
+                // se anda para frente é verdadeiro, o metodo Andar() é executado com o paramentro 1. Caso contrario, o metodo recebe o como paramentro -1
+                Andar(1); 
             } else if (andarParaTras)
             {
                 Andar(-1);
@@ -88,14 +97,16 @@ public class ControlePorVoz : MonoBehaviour
 
             if (subirEscada && colisaoEscada)
             {
-                SubirEscada(1); // se subirEscada e o personagem estive em contato com a escada. O metodo SubirEscada é executado com paramentro 1. Caso contrario, o paramentro é -1.
+                // se subirEscada e o personagem estive em contato com a escada. O metodo SubirEscada é executado com paramentro 1. Caso contrario, o paramentro é -1.
+                SubirEscada(1); 
             } else if(desceEscada && colisaoEscada)
             {
                 SubirEscada(-1);
             }
             else
             {
-                rb.gravityScale = gravidadeInicial; // se ambos os casos forem falso. O personagem recebe a gravidade inicial.
+                // se ambos os casos forem falso. O personagem recebe a gravidade inicial.
+                rb.gravityScale = gravidadeInicial; 
             }
         } else if (gameManager.GetComponent<GameManager>().isPause)
         {
@@ -118,6 +129,7 @@ public class ControlePorVoz : MonoBehaviour
 
     private void RecarregarScene()
     {
+        // metodo que regarrega a cena atual
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -128,34 +140,45 @@ public class ControlePorVoz : MonoBehaviour
 
     private void Andar(int direcao)
     {
-        rb.velocity = new Vector2(direcao * velocidadeMovimento, rb.velocity.y); // enquando o metodo anda para frente for chamado o personagem será deslocado a (direcao * velocida) no eixo x
-        animator.SetBool("walking", true); // quando o personagem estive andando, sua animação "walk" é executada.
-        if(direcao > 0) // direcao = 1 para direita. direcao = -1 para esqueda
-        {
-            GetComponent<SpriteRenderer>().flipX = false; // se a direçao do personagem é para direita, o Sprite não rotaciona para esqueda.
+        // enquando o metodo anda para frente for chamado o personagem será deslocado a (direcao * velocida) no eixo x
+        rb.velocity = new Vector2(direcao * velocidadeMovimento, rb.velocity.y); 
+        // quando o personagem estive andando, sua animação "walk" é executada.
+        animator.SetBool("walking", true); 
+        // direcao = 1 para direita. direcao = -1 para esqueda
+        if (direcao > 0) 
+        {   
+            // se a direçao do personagem é para direita, o Sprite não rotaciona para esqueda.
+            GetComponent<SpriteRenderer>().flipX = false; 
         } else
         {
-            GetComponent<SpriteRenderer>().flipX = true; // se a direcao do personagem é para esqueda, o Sprite rotaciona 180° para esquerda.
+            // se a direcao do personagem é para esqueda, o Sprite rotaciona 180° para esquerda.
+            GetComponent<SpriteRenderer>().flipX = true; 
         }
     }
 
     private void SubirEscada(int direcao)
     {
-        rb.velocity = new Vector2(rb.velocity.x, direcao * velocidadeMovimento); // enquanto subir escada for verdadeiro, o personagem será deslocado a ( direcao * velocidadeMovimento) no eixo vertical
-        animator.SetBool("subirEscada", true); // quando o personagem estive subindo escada, sua animação "astroLadder" é executada.
-        rb.gravityScale = 0; // enquanto estive subindo a gravidade do personagem é nula.
+        // enquanto subir escada for verdadeiro, o personagem será deslocado a ( direcao * velocidadeMovimento) no eixo vertical
+        rb.velocity = new Vector2(rb.velocity.x, direcao * velocidadeMovimento); 
+        // quando o personagem estive subindo escada, sua animação "astroLadder" é executada.
+        animator.SetBool("subirEscada", true); 
+        // enquanto estive subindo a gravidade do personagem é nula.
+        rb.gravityScale = 0; 
     }
 
     private void Parar()
     {
         if (colisaPlataforma)
         {
-            rb.velocity = new Vector2(0, rb.velocity.y); // se o pernagem estive na plataforma, a sua velocidade horizontal é nula
-            animator.SetBool("walking", false); // a animação de "walk" é parada a execução
+            // se o pernagem estive na plataforma, a sua velocidade horizontal é nula
+            rb.velocity = new Vector2(0, rb.velocity.y); 
+            // a animação de "walk" é parada a execução
+            animator.SetBool("walking", false); 
         }
         if (colisaoEscada)
         {
-            rb.velocity = new Vector2(0, 0); // se o personagem estive na escada, tando a velocidade horizontal e vertical são anuladas
+            // se o personagem estive na escada, tando a velocidade horizontal e vertical são anuladas
+            rb.velocity = new Vector2(0, 0); 
         }
         // as 3 variaveis de movimentos são setadas para falsas
         andarParaFentre = false;
@@ -167,25 +190,28 @@ public class ControlePorVoz : MonoBehaviour
     {
         if (colisaPlataforma)
         {
-            rb.AddForce(new Vector2(0, forcaPulo)); // metodo AddForce adiciona forca em um dos eixos, neste caso somento no eixo y. Deslocanto o personagem verticalmente
-            
+            // metodo AddForce adiciona forca em um dos eixos, neste caso somento no eixo y. Deslocanto o personagem verticalmente
+            rb.AddForce(new Vector2(0, forcaPulo)); 
         }
         if (!(colisaPlataforma))
         {
-            animator.SetBool("jumping", true); // ao pular a animação de jump é setada como verdadeira
+            // ao pular a animação de jump é setada como verdadeira
+            animator.SetBool("jumping", true); 
         }
         else
         {
-            animator.SetBool("jumping", false); // caso contrario, ou seja, personagem na platarfoma; A animação de setada como falsa
+            // caso contrario, ou seja, personagem na platarfoma; A animação de setada como falsa
+            animator.SetBool("jumping", false);
         }
     }
-    private void OnCollisionEnter2D(Collision2D collision) // metodo para indetifica a colisao do personagem com outros objetos do jogo.
-    {
+    // metodo para indetifica a colisao do personagem com outros objetos do jogo.
+    private void OnCollisionEnter2D(Collision2D collision) 
+    {   
+        // se a tag do objeto em colisão for "Tile", a variavel colisaPlataforma é verdaira
         if (collision.gameObject.CompareTag("Tile") ||
-            collision.gameObject.CompareTag("movimentoPlataforma")) // se a tag do objeto em colisão for "Tile", a variavel colisaPlataforma é verdaira
+            collision.gameObject.CompareTag("movimentoPlataforma")) 
         {
             colisaPlataforma = true;
-            collision.gameObject.CompareTag("movimentoPlataforma");
         }
 
         if(collision.gameObject.CompareTag("movimentoPlataforma")){
@@ -193,6 +219,7 @@ public class ControlePorVoz : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("spike"))
         {
+            // se o personagem colidir com os espinhos ele morre
             personagemVivo = false;
             animator.SetBool("morre", true);
         }
@@ -202,6 +229,7 @@ public class ControlePorVoz : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("movimentoPlataforma"))
         {
+            // se o personagem colidir com uma plataforma em movimento seu Transform é setado como parente do objeto colidido
             GetComponent<Transform>().parent = collision.transform;
         }
     }
@@ -214,6 +242,7 @@ public class ControlePorVoz : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("movimentoPlataforma"))
         {
+            // quando sair da colisão com a plataforma em movimento, o personagem deixa de ser filho do objeto em colisão(ou fica sem pai)
             GetComponent<Transform>().parent = null;
         }
         
@@ -221,16 +250,13 @@ public class ControlePorVoz : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision) 
     {
-        if (collision.gameObject.CompareTag("escada")) // se o personagem entrar em contato com escada, um gatilho é disparado e a variavel colisaoEscada é setada como verdadeira
-        {
+        // se o personagem entrar em contato com escada, um gatilho é disparado e a variavel colisaoEscada é setada como verdadeira
+        if (collision.gameObject.CompareTag("escada")) {
             colisaoEscada = true;
-        }
-        if (collision.gameObject.CompareTag("movimentoPlataforma"))
-        {
-            GetComponent<Transform>().parent = null;
         }
         if (collision.gameObject.CompareTag("portal"))
         {
+            // se o personagem colidir com portalOn, a fase é parada e o painelFinal é ativado
             Parar();
             painelFinal.SetActive(true);
         }
@@ -239,11 +265,13 @@ public class ControlePorVoz : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("escada"))// se o personagem sair do contato com escada, um gatilho é disparado e a variavel colisaoEscada é setada como falsa
+        // se o personagem sair do contato com escada, um gatilho é disparado e a variavel colisaoEscada é setada como falsa
+        if (collision.gameObject.CompareTag("escada"))
         {
             colisaoEscada = false;
             subirEscada = false;
-            animator.SetBool("subirEscada", false); // seta a animação de subir escada como false
+            // seta a animação de subir escada como false
+            animator.SetBool("subirEscada", false);
         }
     }
 
