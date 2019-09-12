@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 {
     public GameObject Painel;
     public bool isPause;
+    public float time;
+    public Text textTime;
 
     
     void Start()
@@ -19,7 +21,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        ContaTempo();
+        textTime.text = time.ToString("F0");
     }
 
     public void Pause()
@@ -40,5 +43,19 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
       
+    }
+
+    public void ProximaFase()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    public void ContaTempo()
+    {
+        time -= Time.deltaTime;
+        if(time < 0)
+        {
+            RestartGame();
+        }
     }
 }
