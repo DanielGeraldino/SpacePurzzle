@@ -14,6 +14,7 @@ TagManager:
   - spike
   - movimentoPlataforma
   - portal
+  - posEscada
   layers:
   - Default
   - TransparentFX

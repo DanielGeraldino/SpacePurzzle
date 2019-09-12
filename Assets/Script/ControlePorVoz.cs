@@ -19,6 +19,7 @@ public class ControlePorVoz : MonoBehaviour
     public bool subirEscada; // verdadeiro se o personagem estive subido escada
     public bool desceEscada; // verdadeiro se o personagem recebe o comando de descer escada
     public bool personagemVivo; // indicar se o personagem esta vivo;
+    public bool parar;
 
     public int qtdCristal = 0; // guarda a quandidade de cristal coletada
     public Text textoQtdCristal; // objeto Text que desenha o a quantidade de cristal na tela do jogo;
@@ -93,6 +94,7 @@ public class ControlePorVoz : MonoBehaviour
             {
                 andarParaFentre = false;
                 andarParaTras = false;
+                animator.SetBool("walking", false);
             }
 
             if (subirEscada && colisaoEscada)
@@ -108,6 +110,11 @@ public class ControlePorVoz : MonoBehaviour
                 // se ambos os casos forem falso. O personagem recebe a gravidade inicial.
                 rb.gravityScale = gravidadeInicial; 
             }
+            if (parar)
+            {
+                Parar();
+            }
+            
         } else if (gameManager.GetComponent<GameManager>().isPause)
         {
             Parar();
@@ -269,9 +276,13 @@ public class ControlePorVoz : MonoBehaviour
         if (collision.gameObject.CompareTag("escada"))
         {
             colisaoEscada = false;
-            subirEscada = false;
+            //subirEscada = false;
             // seta a animação de subir escada como false
             animator.SetBool("subirEscada", false);
+        }
+        if (collision.gameObject.CompareTag("posEscada"))
+        {
+            subirEscada = false;
         }
     }
 
