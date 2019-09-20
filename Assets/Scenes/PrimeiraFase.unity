@@ -489,6 +489,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a055d8045ee73844ac7933fc72dda46, type: 3}
+--- !u!1 &1323947813 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4384749685413812070, guid: 868835bc2ad75274a8e8c4235faafe9d,
+    type: 3}
+  m_PrefabInstance: {fileID: 4384749686742718120}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1340586229 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6147544830023666547, guid: d9def573e3152f84fbcd6e787353c066,
+    type: 3}
+  m_PrefabInstance: {fileID: 6147544830602700680}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1340586230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1340586229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e91f1c571e77ecf40b7418448d4e70d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  personagem: {fileID: 1323947813}
 --- !u!1 &1518045990 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6309705406129923651, guid: ced2ee3da05e7d7438ff12d9506b8566,
@@ -1539,6 +1564,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6309705404354828519, guid: ced2ee3da05e7d7438ff12d9506b8566,
+        type: 3}
+      propertyPath: m_Name
+      value: Canvas
+      objectReference: {fileID: 0}
     - target: {fileID: 6970413078445112399, guid: ced2ee3da05e7d7438ff12d9506b8566,
         type: 3}
       propertyPath: m_Text
@@ -1555,6 +1585,21 @@ PrefabInstance:
       value: 0.4431373
       objectReference: {fileID: 0}
     - target: {fileID: 6970413078445112399, guid: ced2ee3da05e7d7438ff12d9506b8566,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.5803922
+      objectReference: {fileID: 0}
+    - target: {fileID: 6309705405538798609, guid: ced2ee3da05e7d7438ff12d9506b8566,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.8941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 6309705405538798609, guid: ced2ee3da05e7d7438ff12d9506b8566,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.4431373
+      objectReference: {fileID: 0}
+    - target: {fileID: 6309705405538798609, guid: ced2ee3da05e7d7438ff12d9506b8566,
         type: 3}
       propertyPath: m_Color.b
       value: 0.5803922
@@ -1578,26 +1623,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TextTime
-      objectReference: {fileID: 0}
-    - target: {fileID: 6309705404354828519, guid: ced2ee3da05e7d7438ff12d9506b8566,
-        type: 3}
-      propertyPath: m_Name
-      value: Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 6309705405538798609, guid: ced2ee3da05e7d7438ff12d9506b8566,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.8941177
-      objectReference: {fileID: 0}
-    - target: {fileID: 6309705405538798609, guid: ced2ee3da05e7d7438ff12d9506b8566,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.4431373
-      objectReference: {fileID: 0}
-    - target: {fileID: 6309705405538798609, guid: ced2ee3da05e7d7438ff12d9506b8566,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.5803922
       objectReference: {fileID: 0}
     - target: {fileID: 6309705404354828515, guid: ced2ee3da05e7d7438ff12d9506b8566,
         type: 3}
