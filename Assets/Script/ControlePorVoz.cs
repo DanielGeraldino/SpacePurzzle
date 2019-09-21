@@ -8,8 +8,9 @@ using UnityEngine.UI;
 
 public class ControlePorVoz : MonoBehaviour
 {
-    public float velocidadeMovimento = 4.0f; // variavel que guarda a velocidade do movimento do personagem
-    public float forcaPulo = 300.0f; // força do pulo do personagem
+    public float velocidadeMovimento; // variavel que guarda a velocidade do movimento do personagem
+    public float forcaPulo; // força do pulo do personagem
+    public float forcaPuloFrente;
     private float gravidadeInicial; // guarda a gravidade inicial do personagem
    
     public bool colisaPlataforma; // identifica se o personagem esta na plataforma(ou chao)
@@ -20,6 +21,7 @@ public class ControlePorVoz : MonoBehaviour
     public bool desceEscada; // verdadeiro se o personagem recebe o comando de descer escada
     public bool personagemVivo; // indicar se o personagem esta vivo;
     public bool parar;
+    public bool pularFrente;
 
     public int qtdCristal = 0; // guarda a quandidade de cristal coletada
     public Text textoQtdCristal; // objeto Text que desenha o a quantidade de cristal na tela do jogo;
@@ -45,7 +47,6 @@ public class ControlePorVoz : MonoBehaviour
         gravidadeInicial = rb.gravityScale; 
         personagemVivo = true;
         
-
         keywords.Add("anda", () => {
             // Adicionando o comando de voz "Anda", se o comando for usado a variavel "AndaParaFrente" fica verdadeira
             andarParaFentre = true;
@@ -60,8 +61,10 @@ public class ControlePorVoz : MonoBehaviour
         // Adicionado o comando de parada, se o comando for usado o metodo Parar() é executado
         keywords.Add("para", () => Parar()); 
         // Adicionado o comando Pular, se o comando for executado o metodo Pular() é chamado
-        keywords.Add("pula", () => Pular()); 
-
+        keywords.Add("pula", () => Pular());
+        keywords.Add("pula para frente", () => pularParaFrente());
+        keywords.Add("pause", () => gameManager.GetComponent<GameManager>().Pause());
+        keywords.Add("restart", () => gameManager.GetComponent<GameManager>().RestartGame());
 
         keywordRecognizer = new KeywordRecognizer(keywords.Keys.ToArray());
         keywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
@@ -95,6 +98,7 @@ public class ControlePorVoz : MonoBehaviour
                 andarParaFentre = false;
                 andarParaTras = false;
                 animator.SetBool("walking", false);
+                animator.SetBool("jumping", false);
             }
 
             if (subirEscada && colisaoEscada)
@@ -140,17 +144,20 @@ public class ControlePorVoz : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    private void finalJogo()
-    {
-
-    }
-
     private void Andar(int direcao)
     {
+
         // enquando o metodo anda para frente for chamado o personagem será deslocado a (direcao * velocida) no eixo x
-        rb.velocity = new Vector2(direcao * velocidadeMovimento, rb.velocity.y); 
+        
+        rb.velocity = new Vector2(direcao * velocidadeMovimento, rb.velocity.y);
         // quando o personagem estive andando, sua animação "walk" é executada.
-        animator.SetBool("walking", true); 
+        if (colisaPlataforma)
+            animator.SetBool("walking", true);
+        else
+            animator.SetBool("walking", false);
+        
+
+        
         // direcao = 1 para direita. direcao = -1 para esqueda
         if (direcao > 0) 
         {   
@@ -200,16 +207,16 @@ public class ControlePorVoz : MonoBehaviour
             // metodo AddForce adiciona forca em um dos eixos, neste caso somento no eixo y. Deslocanto o personagem verticalmente
             rb.AddForce(new Vector2(0, forcaPulo)); 
         }
-        if (!(colisaPlataforma))
+    }
+
+    private void pularParaFrente()
+    {
+        if (colisaPlataforma)
         {
-            // ao pular a animação de jump é setada como verdadeira
-            animator.SetBool("jumping", true); 
+            // metodo AddForce adiciona forca em um dos eixos, neste caso somento no eixo y. Deslocanto o personagem verticalmente
+            rb.AddForce(new Vector2(forcaPuloFrente, forcaPulo));
         }
-        else
-        {
-            // caso contrario, ou seja, personagem na platarfoma; A animação de setada como falsa
-            animator.SetBool("jumping", false);
-        }
+        
     }
     // metodo para indetifica a colisao do personagem com outros objetos do jogo.
     private void OnCollisionEnter2D(Collision2D collision) 
@@ -219,6 +226,7 @@ public class ControlePorVoz : MonoBehaviour
             collision.gameObject.CompareTag("movimentoPlataforma")) 
         {
             colisaPlataforma = true;
+            animator.SetBool("jumping", false);
         }
 
         if(collision.gameObject.CompareTag("movimentoPlataforma")){
@@ -243,9 +251,11 @@ public class ControlePorVoz : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision) // metodo para indetifica a saida da colisao do personagem com outros objetos do jogo.
     {
-        if (collision.gameObject.CompareTag("Tile")) // se a tag do objeto em colisão era "Tile", a variavel colisaPlataforma é falsa
+        if (collision.gameObject.CompareTag("Tile") 
+            || collision.gameObject.CompareTag("movimentoPlataforma")) // se a tag do objeto em colisão era "Tile", a variavel colisaPlataforma é falsa
         {
             colisaPlataforma = false;
+            animator.SetBool("jumping", true);
         }
         if (collision.gameObject.CompareTag("movimentoPlataforma"))
         {

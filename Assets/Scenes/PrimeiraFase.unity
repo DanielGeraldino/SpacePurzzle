@@ -1264,6 +1264,16 @@ PrefabInstance:
       propertyPath: forcaPulo
       value: 300
       objectReference: {fileID: 0}
+    - target: {fileID: 4384749685413812094, guid: 868835bc2ad75274a8e8c4235faafe9d,
+        type: 3}
+      propertyPath: colisaPlataforma
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4384749685413812094, guid: 868835bc2ad75274a8e8c4235faafe9d,
+        type: 3}
+      propertyPath: forcaPuloFrente
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 4384749685413812090, guid: 868835bc2ad75274a8e8c4235faafe9d,
         type: 3}
       propertyPath: m_GravityScale
@@ -1624,6 +1634,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TextTime
       objectReference: {fileID: 0}
+    - target: {fileID: 986228474123261537, guid: ced2ee3da05e7d7438ff12d9506b8566,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6309705404354828515, guid: ced2ee3da05e7d7438ff12d9506b8566,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1930,6 +1945,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MoviPlataforma
+      objectReference: {fileID: 0}
+    - target: {fileID: 8197153430606454845, guid: 307389cf48a79ed42b416d2ddafe0f93,
+        type: 3}
+      propertyPath: m_TagString
+      value: movimentoPlataforma
       objectReference: {fileID: 0}
     - target: {fileID: 8197153430606454844, guid: 307389cf48a79ed42b416d2ddafe0f93,
         type: 3}
