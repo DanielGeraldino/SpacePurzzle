@@ -21,11 +21,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isPause)
-        {
-            ContaTempo();
-            textTime.text = time.ToString();
-        }
+       
     }
 
     public void Pause()
@@ -52,12 +48,5 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
-    public void ContaTempo()
-    {
-        time -= Time.deltaTime;
-        if(time <= 0)
-        {
-            RestartGame();
-        }
-    }
+    
 }

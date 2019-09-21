@@ -29,6 +29,7 @@ public class ControlePorVoz : MonoBehaviour
     public GameObject gameManager;
     public GameObject objPortal;
     public GameObject painelFinal;
+    public GameObject painelAjuda;
 
     KeywordRecognizer keywordRecognizer;
     // dicionario que guarda um texto/comando relacionado a uma ação/metodo
@@ -65,6 +66,12 @@ public class ControlePorVoz : MonoBehaviour
         keywords.Add("pula para frente", () => pularParaFrente());
         keywords.Add("pause", () => gameManager.GetComponent<GameManager>().Pause());
         keywords.Add("restart", () => gameManager.GetComponent<GameManager>().RestartGame());
+        keywords.Add("ajuda", () =>
+        {
+            Parar();
+            painelAjuda.SetActive(true);
+        });
+        keywords.Add("continua", () => painelAjuda.SetActive(false));
 
         keywordRecognizer = new KeywordRecognizer(keywords.Keys.ToArray());
         keywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
