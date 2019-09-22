@@ -12,18 +12,6 @@ public class GameManager : MonoBehaviour
     public float time;
     public Text textTime;
 
-    
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-       
-    }
-
     public void Pause()
     {
         if (isPause)
@@ -45,7 +33,7 @@ public class GameManager : MonoBehaviour
 
     public void ProximaFase()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     

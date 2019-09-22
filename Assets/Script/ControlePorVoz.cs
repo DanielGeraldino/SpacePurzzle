@@ -21,7 +21,6 @@ public class ControlePorVoz : MonoBehaviour
     public bool desceEscada; // verdadeiro se o personagem recebe o comando de descer escada
     public bool personagemVivo; // indicar se o personagem esta vivo;
     public bool parar;
-    public bool pularFrente;
 
     public int qtdCristal = 0; // guarda a quandidade de cristal coletada
     public Text textoQtdCristal; // objeto Text que desenha o a quantidade de cristal na tela do jogo;
@@ -71,7 +70,12 @@ public class ControlePorVoz : MonoBehaviour
             Parar();
             painelAjuda.SetActive(true);
         });
-        keywords.Add("continua", () => painelAjuda.SetActive(false));
+        keywords.Add("continua", () =>
+        {
+            if (gameManager.GetComponent<GameManager>().isPause)
+                gameManager.GetComponent<GameManager>().Pause();
+            painelAjuda.SetActive(false);
+        });
 
         keywordRecognizer = new KeywordRecognizer(keywords.Keys.ToArray());
         keywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
@@ -84,6 +88,7 @@ public class ControlePorVoz : MonoBehaviour
         
         if (personagemVivo && !(gameManager.GetComponent<GameManager>().isPause))
         {
+
             textoQtdCristal.text = qtdCristal.ToString();
             Portal portal = objPortal.GetComponent<Portal>();
 
@@ -267,7 +272,7 @@ public class ControlePorVoz : MonoBehaviour
         if (collision.gameObject.CompareTag("movimentoPlataforma"))
         {
             // quando sair da colisão com a plataforma em movimento, o personagem deixa de ser filho do objeto em colisão(ou fica sem pai)
-            GetComponent<Transform>().parent = null;
+            //GetComponent<Transform>().parent = null;
         }
         
     }

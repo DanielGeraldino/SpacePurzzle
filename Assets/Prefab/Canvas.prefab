@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3173116157887740274}
   - component: {fileID: 2225849170407001764}
   - component: {fileID: 6970413078445112399}
+  - component: {fileID: 8861049626494417967}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -32,9 +33,9 @@ RectTransform:
   m_Father: {fileID: 6309705404354828515}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 19, y: 127}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 19, y: -37}
   m_SizeDelta: {x: 160, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2225849170407001764
@@ -58,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.8941177, g: 0.4431373, b: 0.5803922, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -78,7 +79,21 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 60
+  m_Text: '-'
+--- !u!114 &8861049626494417967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986228474123261537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65f0c260642dd4d4689feb93fa76d24d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  time: 120
+  gameManager: {fileID: 0}
 --- !u!1 &6309705404207327368
 GameObject:
   m_ObjectHideFlags: 0
@@ -1479,10 +1494,10 @@ RectTransform:
   m_Father: {fileID: 6309705404354828515}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 95, y: 123}
-  m_SizeDelta: {x: 160, y: 190}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 3.6, y: 0}
+  m_SizeDelta: {x: 556.8, y: 327}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7929508662309578192
 CanvasRenderer:
@@ -1505,7 +1520,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.654902, g: 0.33333334, b: 0.48235297, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1514,10 +1529,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 30
+    m_FontSize: 25
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 3
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -1525,15 +1540,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Comandos:
-
-    Andar
-
-    Volta
-
-    pula
-
-    parar'
+  m_Text: "Comandos:\n1: Anda\t\t\t\n2: Volta\n3: pula\n4: pular para frente\n5: parar\n6:
+    pause\n7: Restart\nDiga \"continua\" para fechar o painel."
 --- !u!1 &7008316708424915851
 GameObject:
   m_ObjectHideFlags: 0
