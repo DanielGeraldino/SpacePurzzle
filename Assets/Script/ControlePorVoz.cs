@@ -21,6 +21,7 @@ public class ControlePorVoz : MonoBehaviour
     public bool desceEscada; // verdadeiro se o personagem recebe o comando de descer escada
     public bool personagemVivo; // indicar se o personagem esta vivo;
     public bool parar;
+    public bool pularTras;
 
     public int qtdCristal = 0; // guarda a quandidade de cristal coletada
     public Text textoQtdCristal; // objeto Text que desenha o a quantidade de cristal na tela do jogo;
@@ -63,6 +64,7 @@ public class ControlePorVoz : MonoBehaviour
         // Adicionado o comando Pular, se o comando for executado o metodo Pular() é chamado
         keywords.Add("pula", () => Pular());
         keywords.Add("pula para frente", () => pularParaFrente());
+        keywords.Add("pula para tras", () => pularParaTras());
         keywords.Add("pause", () => gameManager.GetComponent<GameManager>().Pause());
         keywords.Add("restart", () => gameManager.GetComponent<GameManager>().RestartGame());
         keywords.Add("ajuda", () =>
@@ -88,7 +90,6 @@ public class ControlePorVoz : MonoBehaviour
         
         if (personagemVivo && !(gameManager.GetComponent<GameManager>().isPause))
         {
-
             textoQtdCristal.text = qtdCristal.ToString();
             Portal portal = objPortal.GetComponent<Portal>();
 
@@ -227,8 +228,17 @@ public class ControlePorVoz : MonoBehaviour
         {
             // metodo AddForce adiciona forca em um dos eixos, neste caso somento no eixo y. Deslocanto o personagem verticalmente
             rb.AddForce(new Vector2(forcaPuloFrente, forcaPulo));
+            GetComponent<SpriteRenderer>().flipX = false;
         }
-        
+    }
+
+    private void pularParaTras()
+    {
+        if (colisaPlataforma)
+        {
+            rb.AddForce(new Vector2(-forcaPuloFrente, forcaPulo));
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
     }
     // metodo para indetifica a colisao do personagem com outros objetos do jogo.
     private void OnCollisionEnter2D(Collision2D collision) 
@@ -272,7 +282,7 @@ public class ControlePorVoz : MonoBehaviour
         if (collision.gameObject.CompareTag("movimentoPlataforma"))
         {
             // quando sair da colisão com a plataforma em movimento, o personagem deixa de ser filho do objeto em colisão(ou fica sem pai)
-            //GetComponent<Transform>().parent = null;
+            GetComponent<Transform>().parent = null;
         }
         
     }
