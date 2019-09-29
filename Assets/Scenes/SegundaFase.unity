@@ -944,6 +944,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5233c8468e0ce6142ac1c7708db16339, type: 3}
+--- !u!1 &470223217 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6309705406129923651, guid: ced2ee3da05e7d7438ff12d9506b8566,
+    type: 3}
+  m_PrefabInstance: {fileID: 311763874}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &567231363
 GameObject:
   m_ObjectHideFlags: 0
@@ -2244,7 +2250,7 @@ PrefabInstance:
         type: 3}
       propertyPath: painelFinal
       value: 
-      objectReference: {fileID: 311763877}
+      objectReference: {fileID: 470223217}
     - target: {fileID: 4384749685413812094, guid: 868835bc2ad75274a8e8c4235faafe9d,
         type: 3}
       propertyPath: painelAjuda

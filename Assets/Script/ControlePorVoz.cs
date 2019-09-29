@@ -22,6 +22,7 @@ public class ControlePorVoz : MonoBehaviour
     public bool personagemVivo; // indicar se o personagem esta vivo;
     public bool parar;
     public bool pularTras;
+    public bool colisaoPortal;
 
     public int qtdCristal = 0; // guarda a quandidade de cristal coletada
     public Text textoQtdCristal; // objeto Text que desenha o a quantidade de cristal na tela do jogo;
@@ -67,6 +68,7 @@ public class ControlePorVoz : MonoBehaviour
         keywords.Add("pula para tras", () => pularParaTras());
         keywords.Add("pause", () => gameManager.GetComponent<GameManager>().Pause());
         keywords.Add("restart", () => gameManager.GetComponent<GameManager>().RestartGame());
+        keywords.Add("proxima fase", () => proximaFase());
         keywords.Add("ajuda", () =>
         {
             Parar();
@@ -155,6 +157,14 @@ public class ControlePorVoz : MonoBehaviour
     {
         // metodo que regarrega a cena atual
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void proximaFase()
+    {
+        if (colisaoPortal)
+        {
+            gameManager.GetComponent<GameManager>().ProximaFase();
+        }
     }
 
     private void Andar(int direcao)
@@ -298,6 +308,7 @@ public class ControlePorVoz : MonoBehaviour
             // se o personagem colidir com portalOn, a fase é parada e o painelFinal é ativado
             Parar();
             painelFinal.SetActive(true);
+            colisaoPortal = true;
         }
         
     }
