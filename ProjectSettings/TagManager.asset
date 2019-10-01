@@ -15,6 +15,7 @@ TagManager:
   - movimentoPlataforma
   - portal
   - posEscada
+  - AreaParadaPlataforma
   layers:
   - Default
   - TransparentFX
