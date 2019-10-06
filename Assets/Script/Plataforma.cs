@@ -7,7 +7,11 @@ public class Plataforma : MonoBehaviour
     public Transform posicao1, posicao2;
     public float velociade;
     public Transform posicaoInicial;
+    public GameObject areaAjusstaBaixo;
+    public GameObject areaAjusstaEsquerda;
+    public GameObject areaAjusstaDireita;
     private Vector3 proximaPosicao;
+
 
     void Start()
     {
@@ -31,5 +35,15 @@ public class Plataforma : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawLine(posicao1.position, posicao2.position);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("player"))
+        {
+            areaAjusstaBaixo.SetActive(false);
+            areaAjusstaDireita.SetActive(false);
+            areaAjusstaEsquerda.SetActive(false);
+        }
     }
 }

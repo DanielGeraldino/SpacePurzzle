@@ -355,10 +355,7 @@ public class ControlePorVoz : MonoBehaviour
             personagemVivo = false;
             animator.SetBool("morre", true);
         }
-        if (collision.gameObject.CompareTag("cristal"))
-        {
-            qtdCristal++;
-        }
+        
         if (collision.gameObject.CompareTag("movimentoPlataforma"))
         {
             // se o personagem colidir com uma plataforma em movimento seu Transform é setado como parente do objeto colidido
@@ -395,7 +392,11 @@ public class ControlePorVoz : MonoBehaviour
             painelFinal.SetActive(true);
             colisaoPortal = true;
         }
-        
+        if (collision.gameObject.CompareTag("cristal"))
+        {
+            qtdCristal++;
+        }
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
