@@ -23,6 +23,7 @@ public class ControlePorVoz : MonoBehaviour
     public bool parar;
     public bool pularTras;
     public bool colisaoPortal;
+    public bool pFrente;
 
     public int qtdCristal = 0; // guarda a quandidade de cristal coletada
     public Text textoQtdCristal; // objeto Text que desenha o a quantidade de cristal na tela do jogo;
@@ -49,37 +50,68 @@ public class ControlePorVoz : MonoBehaviour
         gravidadeInicial = rb.gravityScale; 
         personagemVivo = true;
         
-        keywords.Add("anda", () => {
-            // Adicionando o comando de voz "Anda", se o comando for usado a variavel "AndaParaFrente" fica verdadeira
-            andarParaFentre = true;
-            andarParaTras = false;
-            }); 
-        keywords.Add("volta", () => {
-            // Adicionando o comando de voz "Volta", se o comando for usado a variavel "AndaParaFente" fica false e "AndarParaTras" fica verdadeira
-            andarParaTras = true;
-            andarParaFentre = false; 
-            }); 
-        keywords.Add("sobe", () => { subirEscada = true; }); // Adicionado o comando para subir escada, se o comando for usado a variavel "subirEscada" fica verdadeira
-        // Adicionado o comando de parada, se o comando for usado o metodo Parar() é executado
-        keywords.Add("para", () => Parar()); 
-        // Adicionado o comando Pular, se o comando for executado o metodo Pular() é chamado
+        //Anda para direita
+        keywords.Add("anda", () => chamadaAndar());
+        keywords.Add("direita", () => chamadaAndar());
+        keywords.Add("andar", () => chamadaAndar());
+        keywords.Add("go", () => chamadaAndar());
+        keywords.Add("gol", () => chamadaAndar());
+        keywords.Add("corre", () => chamadaAndar());
+        keywords.Add("segue", () => chamadaAndar());
+        //Anda para esquerda
+        keywords.Add("esquerda", () => chamadaVoltar());
+        keywords.Add("volta", () => chamadaVoltar());
+        keywords.Add("voltar", () => chamadaVoltar());
+        keywords.Add("Atrás", () => chamadaVoltar());
+        keywords.Add("Traz", () => chamadaVoltar());
+        //Subir escada
+        keywords.Add("sobe", () => chamadaSubirEscada());
+        keywords.Add("subi", () => chamadaSubirEscada());
+        keywords.Add("subir", () => chamadaSubirEscada());
+        keywords.Add("escalar", () => chamadaSubirEscada());
+        keywords.Add("escada", () => chamadaSubirEscada());
+        //Parar o personagem
+        keywords.Add("para", () => Parar());
+        keywords.Add("parar", () => Parar());
+        keywords.Add("paralisar", () => Parar());
+        keywords.Add("suspender", () => Parar());
+        keywords.Add("fique quieto", () => Parar());
+        keywords.Add("não se move", () => Parar());
+        //Pula para cima
         keywords.Add("pula", () => Pular());
+        keywords.Add("pular", () => Pular());
+        keywords.Add("salta", () => Pular());
+        keywords.Add("saltar", () => Pular());
+        keywords.Add("pulo", () => Pular());
+        //Pula para frente
         keywords.Add("pula para frente", () => pularParaFrente());
+        keywords.Add("pula frente", () => pularParaFrente());
+        keywords.Add("pula pra frente", () => pularParaFrente());
+        keywords.Add("frente", () => pularParaFrente());
+        //Pula para tras
         keywords.Add("pula para tras", () => pularParaTras());
-        keywords.Add("pause", () => gameManager.GetComponent<GameManager>().Pause());
-        keywords.Add("restart", () => gameManager.GetComponent<GameManager>().RestartGame());
-        keywords.Add("proxima fase", () => proximaFase());
-        keywords.Add("ajuda", () =>
-        {
-            Parar();
-            painelAjuda.SetActive(true);
-        });
-        keywords.Add("continua", () =>
-        {
-            if (gameManager.GetComponent<GameManager>().isPause)
-                gameManager.GetComponent<GameManager>().Pause();
-            painelAjuda.SetActive(false);
-        });
+        keywords.Add("pula para trás", () => pularParaTras());
+        keywords.Add("pula pra tras", () => pularParaTras());
+        keywords.Add("pula pra trás", () => pularParaTras());
+        //Pause
+        keywords.Add("pause", () => chamadaPause());
+        //Restart
+        keywords.Add("restart", () => chamadaRestart());
+        keywords.Add("recomeça", () => chamadaRestart());
+        keywords.Add("retoma", () => chamadaRestart());
+        //proxima fase
+        keywords.Add("próxima fase", () => proximaFase());
+        keywords.Add("avança", () => proximaFase());
+        keywords.Add("proxima", () => proximaFase());
+        keywords.Add("proximo", () => proximaFase());
+        //Ajuda
+        keywords.Add("ajuda", () => chamadaAjuda());
+        keywords.Add("ajudar", () => chamadaAjuda());
+        //Continuar
+        keywords.Add("continua", () => chamadaContinua());
+        keywords.Add("continuar", () => chamadaContinua());
+
+        keywords.Add("Sair", () => chamadaSair());
 
         keywordRecognizer = new KeywordRecognizer(keywords.Keys.ToArray());
         keywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
@@ -94,7 +126,10 @@ public class ControlePorVoz : MonoBehaviour
         {
             textoQtdCristal.text = qtdCristal.ToString();
             Portal portal = objPortal.GetComponent<Portal>();
-
+            if (pFrente)
+            {
+                pularParaFrente();
+            }
             if (qtdCristal == 3)
             {
                  portal.portalOn = true;
@@ -152,6 +187,56 @@ public class ControlePorVoz : MonoBehaviour
             keywordAction.Invoke();
         }
     }
+
+    //metodos auxiliares para as chamadas de voz
+    private void chamadaAndar()
+    {
+        // Adicionando o comando de voz "Anda", se o comando for usado a variavel "AndaParaFrente" fica verdadeira
+        andarParaFentre = true;
+        andarParaTras = false;
+    }
+
+    private void chamadaVoltar()
+    {
+        // Adicionando o comando de voz "Volta", se o comando for usado a variavel "AndaParaFente" fica false e "AndarParaTras" fica verdadeira
+        andarParaTras = true;
+        andarParaFentre = false;
+    }
+
+    private void chamadaSubirEscada()
+    {
+        subirEscada = true;
+    }
+
+    private void chamadaAjuda()
+    {
+        Parar();
+        painelAjuda.SetActive(true);
+    }
+
+    private void chamadaContinua()
+    {
+        if (gameManager.GetComponent<GameManager>().isPause)
+            gameManager.GetComponent<GameManager>().Pause();
+        painelAjuda.SetActive(false);
+    }
+
+    private void chamadaPause()
+    {
+        gameManager.GetComponent<GameManager>().Pause();
+    }
+
+    private void chamadaRestart()
+    {
+        gameManager.GetComponent<GameManager>().RestartGame();
+    }
+
+    private void chamadaSair()
+    {
+        gameManager.GetComponent<GameManager>().SairGame();
+    }
+
+    //fim metodos auxiliares para chamada de voz
 
     private void RecarregarScene()
     {
