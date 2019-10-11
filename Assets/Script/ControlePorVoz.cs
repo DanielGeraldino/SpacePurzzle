@@ -25,6 +25,7 @@ public class ControlePorVoz : MonoBehaviour
     public bool colisaoPortal;
     public bool pFrente;
 
+
     public int qtdCristal = 0; // guarda a quandidade de cristal coletada
     public Text textoQtdCristal; // objeto Text que desenha o a quantidade de cristal na tela do jogo;
 
@@ -256,15 +257,10 @@ public class ControlePorVoz : MonoBehaviour
     {
 
         // enquando o metodo anda para frente for chamado o personagem será deslocado a (direcao * velocida) no eixo x
-        
         rb.velocity = new Vector2(direcao * velocidadeMovimento, rb.velocity.y);
-        // quando o personagem estive andando, sua animação "walk" é executada.
-        if (colisaPlataforma)
-            animator.SetBool("walking", true);
-        else
-            animator.SetBool("walking", false);
         
-
+        // quando o personagem estive andando, sua animação "walk" é executada.
+        animator.SetBool("walking", true);
         
         // direcao = 1 para direita. direcao = -1 para esqueda
         if (direcao > 0) 
@@ -313,7 +309,9 @@ public class ControlePorVoz : MonoBehaviour
         if (colisaPlataforma)
         {
             // metodo AddForce adiciona forca em um dos eixos, neste caso somento no eixo y. Deslocanto o personagem verticalmente
-            rb.AddForce(new Vector2(0, forcaPulo)); 
+            rb.AddForce(new Vector2(0, forcaPulo));
+            //animator.SetBool("walking", false);
+            animator.SetBool("jumping", true);
         }
     }
 
@@ -323,6 +321,7 @@ public class ControlePorVoz : MonoBehaviour
         {
             // metodo AddForce adiciona forca em um dos eixos, neste caso somento no eixo y. Deslocanto o personagem verticalmente
             rb.AddForce(new Vector2(forcaPuloFrente, forcaPulo));
+            animator.SetBool("jumping", true);
             GetComponent<SpriteRenderer>().flipX = false;
         }
     }
@@ -332,6 +331,7 @@ public class ControlePorVoz : MonoBehaviour
         if (colisaPlataforma)
         {
             rb.AddForce(new Vector2(-forcaPuloFrente, forcaPulo));
+            animator.SetBool("jumping", true);
             GetComponent<SpriteRenderer>().flipX = true;
         }
     }
@@ -369,7 +369,6 @@ public class ControlePorVoz : MonoBehaviour
             || collision.gameObject.CompareTag("movimentoPlataforma")) // se a tag do objeto em colisão era "Tile", a variavel colisaPlataforma é falsa
         {
             colisaPlataforma = false;
-            animator.SetBool("jumping", true);
         }
         if (collision.gameObject.CompareTag("movimentoPlataforma"))
         {
