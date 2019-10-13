@@ -149,7 +149,7 @@ public class ControlePorVoz : MonoBehaviour
                 andarParaFentre = false;
                 andarParaTras = false;
                 animator.SetBool("walking", false);
-                animator.SetBool("jumping", false);
+                //animator.SetBool("jumping", false);
             }
 
             if (subirEscada && colisaoEscada)
@@ -394,6 +394,10 @@ public class ControlePorVoz : MonoBehaviour
         if (collision.gameObject.CompareTag("cristal"))
         {
             qtdCristal++;
+        }
+        if (collision.gameObject.CompareTag("areaFlutucao"))
+        {
+            animator.SetBool("jumping", true);
         }
 
     }

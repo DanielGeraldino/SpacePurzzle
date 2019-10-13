@@ -16,6 +16,7 @@ TagManager:
   - portal
   - posEscada
   - AreaParadaPlataforma
+  - areaFlutucao
   layers:
   - Default
   - TransparentFX
