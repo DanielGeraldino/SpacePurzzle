@@ -1837,8 +1837,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Comandos:\n1: Anda\t\t\t\n2: Volta\n3: pula\n4: pular para frente\n5: parar\n6:
-    pause\n7: Restart\nDiga \"continua\" para fechar o painel."
+  m_Text: "Comandos:\n1: Anda, direita, go, segue\t\t\n2: Volta, esquerda, atr\xE1s\n3:
+    pula\n4: pular para frente(ou tr\xE1s)\n5: parar, n\xE3o se move\n6: pause\n7:
+    Recome\xE7a\n8: Sair\nDiga \"continua\" para fechar o painel."
 --- !u!1 &7008316708424915851
 GameObject:
   m_ObjectHideFlags: 0

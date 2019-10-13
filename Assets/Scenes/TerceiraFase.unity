@@ -1350,6 +1350,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SairGame
       objectReference: {fileID: 0}
+    - target: {fileID: 9124083106662557251, guid: ced2ee3da05e7d7438ff12d9506b8566,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ced2ee3da05e7d7438ff12d9506b8566, type: 3}
 --- !u!114 &1316930709 stripped

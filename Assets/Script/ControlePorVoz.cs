@@ -50,7 +50,7 @@ public class ControlePorVoz : MonoBehaviour
         // setando a gravidade inicial na variavel
         gravidadeInicial = rb.gravityScale; 
         personagemVivo = true;
-        
+
         //Anda para direita
         keywords.Add("anda", () => chamadaAndar());
         keywords.Add("direita", () => chamadaAndar());
@@ -111,8 +111,9 @@ public class ControlePorVoz : MonoBehaviour
         //Continuar
         keywords.Add("continua", () => chamadaContinua());
         keywords.Add("continuar", () => chamadaContinua());
-
+        //Sair do jogo
         keywords.Add("Sair", () => chamadaSair());
+        keywords.Add("Sai", () => chamadaSair());
 
         keywordRecognizer = new KeywordRecognizer(keywords.Keys.ToArray());
         keywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
