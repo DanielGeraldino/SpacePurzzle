@@ -46,6 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Painel: {fileID: 0}
   isPause: 0
+  time: 180
+  textTime: {fileID: 0}
 --- !u!82 &3007657634972195603
 AudioSource:
   m_ObjectHideFlags: 0

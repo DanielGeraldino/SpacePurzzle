@@ -114,6 +114,10 @@ public class ControlePorVoz : MonoBehaviour
         //Sair do jogo
         keywords.Add("Sair", () => chamadaSair());
         keywords.Add("Sai", () => chamadaSair());
+        //Escolhe fase
+        keywords.Add("Fase 1", () => gameManager.GetComponent<GameManager>().EscolheFase(0));
+        keywords.Add("Fase 2", () => gameManager.GetComponent<GameManager>().EscolheFase(1));
+        keywords.Add("Fase 3", () => gameManager.GetComponent<GameManager>().EscolheFase(2));
 
         keywordRecognizer = new KeywordRecognizer(keywords.Keys.ToArray());
         keywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;

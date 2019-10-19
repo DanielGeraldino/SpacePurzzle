@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65f0c260642dd4d4689feb93fa76d24d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 120
+  time: 180
   gameManager: {fileID: 0}
 --- !u!1 &2394711021996339771
 GameObject:
@@ -1839,7 +1839,8 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: "Comandos:\n1: Anda, direita, go, segue\t\t\n2: Volta, esquerda, atr\xE1s\n3:
     pula\n4: pular para frente(ou tr\xE1s)\n5: parar, n\xE3o se move\n6: pause\n7:
-    Recome\xE7a\n8: Sair\nDiga \"continua\" para fechar o painel."
+    Recome\xE7a\n8: Sair\n9: Fase 1, Fase 2, Fase 3\nDiga \"continua\" para fechar
+    o painel."
 --- !u!1 &7008316708424915851
 GameObject:
   m_ObjectHideFlags: 0

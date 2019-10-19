@@ -40,4 +40,9 @@ public class GameManager : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void EscolheFase(int idFase)
+    {
+        SceneManager.LoadScene(idFase);
+    }
 }

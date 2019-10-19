@@ -1173,6 +1173,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3007657634972195601, guid: 93a39865c73a6ca4b8358622a5eaacbb,
+        type: 3}
+      propertyPath: Painel
+      value: 
+      objectReference: {fileID: 1095851883}
+    - target: {fileID: 3007657634972195601, guid: 93a39865c73a6ca4b8358622a5eaacbb,
+        type: 3}
+      propertyPath: textTime
+      value: 
+      objectReference: {fileID: 1098839562}
     - target: {fileID: 3007657634972195602, guid: 93a39865c73a6ca4b8358622a5eaacbb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1228,20 +1238,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3007657634972195601, guid: 93a39865c73a6ca4b8358622a5eaacbb,
+    - target: {fileID: 3007657634972195603, guid: 93a39865c73a6ca4b8358622a5eaacbb,
         type: 3}
-      propertyPath: Painel
-      value: 
-      objectReference: {fileID: 1095851883}
-    - target: {fileID: 3007657634972195601, guid: 93a39865c73a6ca4b8358622a5eaacbb,
-        type: 3}
-      propertyPath: textTime
-      value: 
-      objectReference: {fileID: 1098839562}
-    - target: {fileID: 3007657634972195601, guid: 93a39865c73a6ca4b8358622a5eaacbb,
-        type: 3}
-      propertyPath: time
-      value: 120
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93a39865c73a6ca4b8358622a5eaacbb, type: 3}
@@ -1693,6 +1693,21 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6309705405538798609, guid: ced2ee3da05e7d7438ff12d9506b8566,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.8941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 6309705405538798609, guid: ced2ee3da05e7d7438ff12d9506b8566,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.4431373
+      objectReference: {fileID: 0}
+    - target: {fileID: 6309705405538798609, guid: ced2ee3da05e7d7438ff12d9506b8566,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.5803922
+      objectReference: {fileID: 0}
     - target: {fileID: 8861049626494417967, guid: ced2ee3da05e7d7438ff12d9506b8566,
         type: 3}
       propertyPath: gameManager
@@ -1868,21 +1883,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SairGame
       objectReference: {fileID: 0}
-    - target: {fileID: 6309705405538798609, guid: ced2ee3da05e7d7438ff12d9506b8566,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.8941177
-      objectReference: {fileID: 0}
-    - target: {fileID: 6309705405538798609, guid: ced2ee3da05e7d7438ff12d9506b8566,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.4431373
-      objectReference: {fileID: 0}
-    - target: {fileID: 6309705405538798609, guid: ced2ee3da05e7d7438ff12d9506b8566,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.5803922
-      objectReference: {fileID: 0}
     - target: {fileID: 9124083106662557251, guid: ced2ee3da05e7d7438ff12d9506b8566,
         type: 3}
       propertyPath: m_IsActive
@@ -1958,7 +1958,8 @@ PrefabInstance:
       propertyPath: m_Color.b
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6309705404508708817, guid: ced2ee3da05e7d7438ff12d9506b8566, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ced2ee3da05e7d7438ff12d9506b8566, type: 3}
 --- !u!1 &6309705404687838566 stripped
 GameObject:
